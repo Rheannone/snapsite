@@ -1,0 +1,25 @@
+{
+  "name": "snapsite",
+  "version": "1.0.0",
+  "description": "CLI tool to screenshot websites at multiple viewport sizes",
+  "main": "src/index.js",
+  "bin": {
+    "snapsite": "./bin/snapsite.js"
+  },
+  "scripts": {
+    "start": "node bin/snapsite.js"
+  },
+  "keywords": [
+    "screenshot",
+    "puppeteer",
+    "viewport",
+    "responsive",
+    "crawl"
+  ],
+  "author": "Rheannone",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "puppeteer": "^23.0.0"
+  }
+}
