@@ -2,13 +2,22 @@
 
 CLI tool to screenshot websites at multiple viewport sizes. Crawl an entire site or provide a list of URLs — get desktop, tablet, and mobile screenshots saved to your Desktop.
 
+## Requirements
+
+- [Node.js](https://nodejs.org/) v18 or later
+
 ## Install
 
 ```bash
-npm install -g .
+git clone https://github.com/Rheannone/snapsite.git
+cd snapsite
+npm install
+npm link
 ```
 
-Or run directly:
+This installs dependencies (including Puppeteer with its bundled Chromium) and makes `snapsite` available as a global command.
+
+Or run directly without global install:
 
 ```bash
 node bin/snapsite.js <command>
@@ -45,6 +54,7 @@ Where `urls.txt` contains one URL per line (lines starting with `#` are ignored)
 | `--viewports` | `-v` | Comma-separated viewports | `desktop,tablet,mobile` |
 | `--output` | `-o` | Output directory | `~/Desktop/snapsite-screenshots` |
 | `--max-pages` | `-m` | Max pages to crawl (crawl mode only) | `100` |
+| `--file` | `-f` | Path to URL list file (urls mode only) | — |
 | `--delay` | `-d` | Delay between screenshots (ms) | `0` |
 | `--no-headless` | | Show the browser window | headless |
 
