@@ -21,6 +21,7 @@ program
   .option('-o, --output <dir>', 'Output directory', null)
   .option('-m, --max-pages <number>', 'Max pages to crawl', String(DEFAULT_MAX_PAGES))
   .option('-d, --delay <ms>', 'Delay between screenshots in ms', '0')
+  .option('-s, --scroll', 'Scroll down each page taking multiple screenshots')
   .option('--no-headless', 'Run browser in visible mode')
   .action(async (url, options) => {
     try {
@@ -32,14 +33,16 @@ program
       console.log(`\n🕷️  Crawling: ${url}`);
       console.log(`📐 Viewports: ${viewports.map(v => `${v.name} (${v.width}x${v.height})`).join(', ')}`);
       console.log(`📁 Output: ${output}`);
-      console.log(`📄 Max pages: ${maxPages}\n`);
+      console.log(`📄 Max pages: ${maxPages}`);
+      if (options.scroll) console.log(`📜 Scroll mode: ON (10% overlap)`);
+      console.log('');
 
       fs.mkdirSync(output, { recursive: true });
 
       const urls = await crawlSite(url, maxPages);
       console.log(`\n🔗 Found ${urls.length} page(s). Taking screenshots...\n`);
 
-      await screenshotUrls(urls, viewports, output, { delay, headless: options.headless !== false });
+      await screenshotUrls(urls, viewports, output, { delay, headless: options.headless !== false, scroll: !!options.scroll });
 
       console.log(`\n✅ Done! Screenshots saved to: ${output}\n`);
     } catch (err) {
@@ -55,6 +58,7 @@ program
   .option('-v, --viewports <sizes>', 'Comma-separated viewports: desktop,tablet,mobile or custom WxH', 'desktop,tablet,mobile')
   .option('-o, --output <dir>', 'Output directory', null)
   .option('-d, --delay <ms>', 'Delay between screenshots in ms', '0')
+  .option('-s, --scroll', 'Scroll down each page taking multiple screenshots')
   .option('--no-headless', 'Run browser in visible mode')
   .action(async (urls, options) => {
     try {
@@ -76,11 +80,13 @@ program
 
       console.log(`\n📸 Screenshotting ${urlList.length} URL(s)`);
       console.log(`📐 Viewports: ${viewports.map(v => `${v.name} (${v.width}x${v.height})`).join(', ')}`);
-      console.log(`📁 Output: ${output}\n`);
+      console.log(`📁 Output: ${output}`);
+      if (options.scroll) console.log(`📜 Scroll mode: ON (10% overlap)`);
+      console.log('');
 
       fs.mkdirSync(output, { recursive: true });
 
-      await screenshotUrls(urlList, viewports, output, { delay, headless: options.headless !== false });
+      await screenshotUrls(urlList, viewports, output, { delay, headless: options.headless !== false, scroll: !!options.scroll });
 
       console.log(`\n✅ Done! Screenshots saved to: ${output}\n`);
     } catch (err) {

@@ -55,6 +55,7 @@ Where `urls.txt` contains one URL per line (lines starting with `#` are ignored)
 | `--output` | `-o` | Output directory | `~/Desktop/snapsite-screenshots` |
 | `--max-pages` | `-m` | Max pages to crawl (crawl mode only) | `100` |
 | `--file` | `-f` | Path to URL list file (urls mode only) | — |
+| `--scroll` | `-s` | Scroll down each page, taking multiple screenshots | off |
 | `--delay` | `-d` | Delay between screenshots (ms) | `0` |
 | `--no-headless` | | Show the browser window | headless |
 
@@ -108,6 +109,12 @@ snapsite crawl https://mysite.com -m 500
 
 # Add a 2-second delay between screenshots (for slow-loading sites)
 snapsite urls https://mysite.com -d 2000
+
+# Scroll mode — takes a series of screenshots as it scrolls down (10% overlap)
+snapsite urls https://mysite.com --scroll
+
+# Combine scroll with mobile viewport
+snapsite urls https://mysite.com -v mobile --scroll
 ```
 
 ## License
